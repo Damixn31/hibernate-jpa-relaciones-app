@@ -43,8 +43,22 @@ public class Cliente {
 
     private List<Direccion> direcciones;
 
+    //Relacion @OneToMany Bidireccional
+     /*cualquier relacion bidireccional solo en el OneToMany de tercer parametro tenemos que indicar la relacion
+      inversa con mappedBy -> con esto indicamos cual es el atributo o contraparte en este caso la clase factuta
+      cual es el atributo mapeado a cliente, "factura" es la @Table donde esta la foreign keys(llave foranea)
+      es la duenia de la relacion   */
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
+    private List<Factura> facturas; // en factura tenemos la foreing keys con @JoinColumn(name = "id_cliente")
+
+    // uno a uno
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente") // nunca puede estar
+    // @JoinColumn cuando colocamos el mappedBy
+    private ClienteDetalle detalle;
+
     // cuando tenemos un constructor que recive parametros siempre tenemos que tener un constructor vacio
     public Cliente() {
+        facturas = new ArrayList<>(); // inicializamos facuturas
         direcciones = new ArrayList<>(); // otra manera de inicializar en el constructor
     }
 
@@ -64,6 +78,23 @@ public class Cliente {
         this.formaPago = formaPago;
     }
 
+    public ClienteDetalle getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(ClienteDetalle detalle) {
+        this.detalle = detalle;
+    }
+
+    public void addDetalle(ClienteDetalle detalle) {
+        this.detalle = detalle;
+        detalle.setCliente(this);
+    }
+
+    public void removeDetalle() {
+        detalle.setCliente(null);
+        this.detalle = null;
+    }
 
     public Long getId() {
         return id;
@@ -105,6 +136,34 @@ public class Cliente {
         this.direcciones = direcciones;
     }
 
+    public Auditoria getAudit() {
+        return audit;
+    }
+
+    public void setAudit(Auditoria audit) {
+        this.audit = audit;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Factura> facturas) {
+        this.facturas = facturas;
+    }
+
+    //este metodo lo usamos en el HibernateAsociacionesOneToManyBidireccional
+    public Cliente addFactura(Factura factura){
+        this.facturas.add(factura);
+        factura.setCliente(this);
+        return this;
+    }
+
+    public void removeFactura(Factura factura){
+        this.facturas.remove(factura);
+        factura.setCliente(null);
+    }
+
     @Override
     public String toString() {
         /* cuando generamos una consulta preguntamos si la tiene fecha null, para que no nos tire error, como teniamos
@@ -118,6 +177,8 @@ public class Cliente {
                 ", creadoEn='" + creado + '\'' +
                 ", editadoEn='" + editado + '\'' +
                 ", direcciones='" + direcciones + '\'' +
+                ", facturas='" + facturas + '\'' +
+                ", detalle='" + detalle + '\'' +
                 '}';
     }
 }

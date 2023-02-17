@@ -16,9 +16,9 @@ public class HibernateAsociacionesManyToOne {
             cliente.setFormaPago("credito");
             em.persist(cliente); // guardamos en la base de datos el cliente que creamos por eso el persist
 
-            Factura factura = new Factura("Compra de oficina", 1000L); // depues creamos la factura
-            factura.setCliente(cliente); //cliente tiene que ser un cliente que exista en la base de datos
-            em.persist(factura);
+            Factura factura = new Factura("Compra de oficina", 1000L); // creamos la factura
+            factura.setCliente(cliente); // le asociamos al cliente, cliente tiene que ser un cliente que exista en la base de datos
+            em.persist(factura); //guardamos la factura
 
             System.out.println(factura.getCliente());
 

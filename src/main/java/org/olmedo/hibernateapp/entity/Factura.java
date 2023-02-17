@@ -2,6 +2,7 @@ package org.olmedo.hibernateapp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 
 
 @Entity
@@ -68,7 +69,19 @@ public class Factura {
                 "id=" + id +
                 ", descripcion='" + descripcion + '\'' +
                 ", total=" + total +
-                ", cliente=" + cliente +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Factura factura = (Factura) o;
+        return Objects.equals(id, factura.id) && Objects.equals(descripcion, factura.descripcion) && Objects.equals(total, factura.total);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, descripcion, total);
     }
 }

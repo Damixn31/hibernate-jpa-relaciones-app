@@ -7,6 +7,7 @@
         <!-- aca le tenemos incluir la clase Factura porque si no la va a encontrar por eso es importante! -->
         <class>org.olmedo.hibernateapp.entity.Factura</class>
         <class>org.olmedo.hibernateapp.entity.Direccion</class>
+        <class>org.olmedo.hibernateapp.entity.ClienteDetalle</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <!-- esta configuracion nos sirve para hacer un switch entre un proveedor y otro por ejemplo:
