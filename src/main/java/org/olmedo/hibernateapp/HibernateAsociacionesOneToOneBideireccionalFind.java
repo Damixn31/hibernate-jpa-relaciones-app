@@ -18,7 +18,7 @@ public class HibernateAsociacionesOneToOneBideireccionalFind {
             cliente.addDetalle(detalle);
 
             em.getTransaction().commit();
-            
+
             System.out.println(cliente);
         } catch (Exception e ) {
             em.getTransaction().rollback();

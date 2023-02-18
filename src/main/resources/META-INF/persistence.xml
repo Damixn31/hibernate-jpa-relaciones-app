@@ -8,6 +8,8 @@
         <class>org.olmedo.hibernateapp.entity.Factura</class>
         <class>org.olmedo.hibernateapp.entity.Direccion</class>
         <class>org.olmedo.hibernateapp.entity.ClienteDetalle</class>
+        <class>org.olmedo.hibernateapp.entity.Curso</class>
+        <class>org.olmedo.hibernateapp.entity.Alumno</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <!-- esta configuracion nos sirve para hacer un switch entre un proveedor y otro por ejemplo:
