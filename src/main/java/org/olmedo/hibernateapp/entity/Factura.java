@@ -15,7 +15,8 @@ public class Factura {
     private String descripcion;
     private Long total;
 
-    @ManyToOne // -> mucho a uno. ej: muchas factura un cliente
+    @ManyToOne(fetch = FetchType.LAZY) /* -> mucho a uno. ej: muchas factura un cliente  LAZY -> solo va a buscar
+    al cliente y al detalle cuando se lo requiera */
     @JoinColumn(name = "id_cliente") // con esto le indicamos de modo manual la foreign keys(llave foranea)
     //cuando hacemos este cambio de foreign key y estamos usando drop  para que tome la nueva llave forenea
     //es mejor eliminar las tablas de la base de datos para que la vuelva a crear desde cero

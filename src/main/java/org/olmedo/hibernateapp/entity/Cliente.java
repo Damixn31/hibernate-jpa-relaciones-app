@@ -28,7 +28,9 @@ public class Cliente {
     * si desbiculamos o eliminamos del cliente alguna direccion va a quedar con la llave foranea en null no va a estar asiganada
     * va aquedar huerfana, por eso le pasamos como segundo parametro orphanRemoval en true para que la remueva de manera automatica
     * */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) // @OneToMany -> uno a muchos. ej: un cliente muchas direcciones
+    @OneToMany( /*fetch = FetchType.EAGER,*/ cascade = CascadeType.ALL, orphanRemoval = true) // @OneToMany -> uno a muchos. ej: un cliente muchas direcciones
+    //fetch todo las relaciones que terminan en Many por defecto son LAZY
+    // EAGER -> significa que hace la consulta  a todo de una ves rapido, invocando el metodo get o no
     //@JoinColumn(name = "id_cliente") // Nota : la tabla intermedia solamente la crea cuando maneja de manera automatica la foreign keys(llave foranea)
     // por eso mejor pasarle al @JoinColumn(name = "algunNombre") asi desacoplamos las tablas, queda mas limpio
 
@@ -41,6 +43,8 @@ public class Cliente {
     , inverseJoinColumns = @JoinColumn(name = "id_direccion")
     , uniqueConstraints = @UniqueConstraint(columnNames = {"id_direccion"}))
 
+    // si les pasamos set a las direccion asi Set<Direccion> es una manera de hacer funcionar las multiples consultas
+    //pero no es recomentable porque no es optimo
     private List<Direccion> direcciones;
 
     //Relacion @OneToMany Bidireccional
@@ -49,6 +53,8 @@ public class Cliente {
       cual es el atributo mapeado a cliente, "factura" es la @Table donde esta la foreign keys(llave foranea)
       es la duenia de la relacion   */
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
+    // si les pasamos set a las direccion asi Set<Direccion> es una manera de hacer funcionar las multiples consultas
+    //pero no es recomentable porque no es optimo
     private List<Factura> facturas; // en factura tenemos la foreing keys con @JoinColumn(name = "id_cliente")
 
     // uno a uno
